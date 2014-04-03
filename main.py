@@ -5,7 +5,7 @@ from automation.device.arduino_proxy import ArduinoProxy
 
 
 app = Flask(__name__)
-garage = Garage(ArduinoProxy('/dev/ttyACM0'), 10)
+garage = Garage(ArduinoProxy('/dev/ttyACM0'), 10, 3, 4)
 
 def check_auth(username, password):
     return username == 'admin' and password == '6gy7cg'

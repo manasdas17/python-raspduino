@@ -11,12 +11,12 @@ class Garage():
 
     def open_door(self):
         if not self.is_open:
-            self.arduino.digital_temporary_toggle(self.door_relay_pin)
+            self.arduino.digital_temporary_toggle(self.door_relay_pin, 0.5)
             self.is_open = True
 
     def close_door(self):
         if self.is_open:
-            self.arduino.digital_temporary_toggle(self.door_relay_pin)
+            self.arduino.digital_temporary_toggle(self.door_relay_pin, 0.5)
             self.is_open = False
 
     def fake_opened_status(self):

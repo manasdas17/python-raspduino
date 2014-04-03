@@ -10,6 +10,7 @@ class GarageTest(unittest.TestCase):
     def setUp(self):
         self.door_relay_pin = 10
         self.door_open_sensor_pin = 11
+        self.trigger_length = 0.5
         self.arduino_proxy = ArduinoProxy
         self.arduino_proxy.digital_read = Mock()
         self.arduino_proxy.digital_write = Mock()
@@ -18,7 +19,7 @@ class GarageTest(unittest.TestCase):
 
     def test_that_we_can_open_the_door(self):
         self.garage.open_door()
-        self.arduino_proxy.digital_temporary_toggle.assert_called_with(self.door_relay_pin)
+        self.arduino_proxy.digital_temporary_toggle.assert_called_with(self.door_relay_pin, self.trigger_length)
 
     def test_that_when_opening_the_door_the_correct_state_is_returned(self):
         self.garage.open_door()
@@ -27,7 +28,7 @@ class GarageTest(unittest.TestCase):
     def test_that_we_can_close_the_door(self):
         self.garage.open_door()
         self.garage.close_door()
-        self.arduino_proxy.digital_temporary_toggle.assert_called_with(self.door_relay_pin)
+        self.arduino_proxy.digital_temporary_toggle.assert_called_with(self.door_relay_pin, self.trigger_length)
 
     def test_that_when_closing_the_door_the_correct_state_is_returned(self):
         self.garage.close_door()
@@ -36,7 +37,7 @@ class GarageTest(unittest.TestCase):
     def test_that_we_cant_open_the_door_when_its_currently_opened(self):
         self.garage.open_door()
         self.garage.open_door()
-        self.arduino_proxy.digital_temporary_toggle.assert_called_once_with(self.door_relay_pin)
+        self.arduino_proxy.digital_temporary_toggle.assert_called_once_with(self.door_relay_pin, self.trigger_length)
 
     def test_that_we_cant_close_the_door_when_its_currently_closed(self):
         self.garage.close_door()
