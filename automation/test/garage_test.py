@@ -44,7 +44,13 @@ class GarageTest(unittest.TestCase):
         self.garage.close_door()
         assert not self.arduino_proxy.digital_temporary_toggle.called
 
-    def test_that_an_error_is_raised_if_the_door_is_not_open_within_15_seconds(self):
+    def test_that_the_door_status_is_open_when_opened_sensor_is_high_and_closed_sensor_low(self):
         pass
+        # self.arduino_proxy.digital_read.side_effect = [ 1, 0 ]
+        # assert_that(self.garage.door_status(), equal_to("Currently opened"))
+
+        # self.arduino_proxy.digital_read.assert_called_with(3)
+        # self.arduino_proxy.digital_read.assert_called_with(4)
+
 
 

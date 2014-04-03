@@ -34,6 +34,11 @@ def close():
 def open():
     return Response(garage.open_door(), status=202)
 
+@app.route('/door/status')
+@requires_auth
+def status():
+    return Response(garage.door_status(), status=200)
+
 @app.route('/fake/open')
 @requires_auth
 def fake_opened():
