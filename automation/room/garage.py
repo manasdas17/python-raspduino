@@ -17,5 +17,9 @@ class Garage():
             self.arduino.digital_toggle(self.door_relay_pin)
             self.is_open = False
 
+    def fake_opened_status(self):
+        self.arduino.digital_toggle(3)
 
+    def fake_closed_status(self):
+        self.arduino.digital_toggle(4)
 

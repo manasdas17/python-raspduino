@@ -24,15 +24,26 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
+@app.route('/door/close')
+@requires_auth
+def close():
+    return Response(garage.close_door(), status=202)
+
 @app.route('/door/open')
 @requires_auth
 def open():
     return Response(garage.open_door(), status=202)
 
-@app.route('/door/close')
+@app.route('/fake/open')
 @requires_auth
-def close():
-    return Response(garage.close_door(), status=202)
+def fake_opened():
+    return Response(garage.fake_opened_status(), status=200)
+
+@app.route('/fake/close')
+@requires_auth
+def fake_closed():
+    return Response(garage.fake_closed_status(), status=200)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
