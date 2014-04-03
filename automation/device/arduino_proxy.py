@@ -14,6 +14,9 @@ class ArduinoProxy():
         return self.board.digital[pin].read()
 
     def digital_toggle(self, pin):
+        self.digital_write(pin, int(not self.digital_read(pin)))
+
+    def digital_temporary_toggle(self, pin, delay_in_secs):
         self.digital_write(pin, 1)
-        sleep(0.5)
+        sleep(delay_in_secs)
         self.digital_write(pin, 0)
